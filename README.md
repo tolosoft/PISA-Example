@@ -12,7 +12,7 @@ ___
 
 ___
 
-Directory structure for the example (the names are self-explanatory of their contents):
+Directory structure for the example (the names are self-explanatory of their contents). The commands bellow refer to file locations inside this structure.
 
 ```.
 ./collection/
@@ -45,6 +45,10 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 ```
 ../pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv -e block_simdbp -o ./index/3_compressed/wikilarge.inv.simdbp --check
 ```
+
+Note: There is a version of the index inside ´´´./index/3_compressed/´´´ diretcory which is (besides) compressed using ´´´gzip´´´ to avoid surpassing 50 Mb (Github's max file size suggestion). ´´´Gunzip´´´ it if you want to run tests without reindexing the collection.
+
+
 
 #### Reordering docids using graph bisection algorithm 
 (We use the recursive graph bisection algorithm. See: https://pisa-engine.github.io/pisa/book/guide/reordering.html)
