@@ -1,6 +1,7 @@
 # PISA Example
 
 This is an example of indexing and running retrieval experiments using the PISA engine (https://github.com/pisa-engine/pisa).
+
 This example follows the pipeline depicted in the official documentation: https://pisa-engine.github.io/pisa/book/guide/indexing-pipeline.html
 
 ___
@@ -40,7 +41,7 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 ```
 
 #### Compressing the index 
-(we select the SIMD-BP codec. See: https://pisa-engine.github.io/pisa/book/guide/compressing.html)
+(We select the SIMD-BP codec. See: https://pisa-engine.github.io/pisa/book/guide/compressing.html)
 ```
 ../pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv -e block_simdbp -o ./index/3_compressed/wikilarge.inv.simdbp --check
 ```
