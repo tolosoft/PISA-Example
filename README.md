@@ -1,6 +1,6 @@
 # PISA Example
 
-This is an example of indexing and running retrieval experiments using the PISA engine (https://github.com/pisa-engine/pisa).
+This is an example of indexing and running retrieval experiments using the PISA engine (https://github.com/pisa-engine/pisa), release v0.9.0
 
 This example follows the pipeline depicted in the official documentation: https://pisa-engine.github.io/pisa/book/guide/indexing-pipeline.html
 
