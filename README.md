@@ -52,7 +52,7 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 #### Reordering docids using graph bisection algorithm 
 (We use the recursive graph bisection algorithm. See: https://pisa-engine.github.io/pisa/book/guide/reordering.html)
 ```
-../pisa/build/bin/reorder-docids --bp --collection ./index/2_inverted/wikilarge.inv --output ./index/2_inverted/wikilarge.inv.bp 
+~/pisa/build/bin/reorder-docids --bp --collection ./index/2_inverted/wikilarge.inv --output ./index/2_inverted/wikilarge.inv.bp 
 ```
 
 #### Compressing the reordered index (~7% size reduction for this example)
