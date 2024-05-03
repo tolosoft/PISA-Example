@@ -37,16 +37,16 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 
 #### Creating wand data file
 ```
-../pisa/build/bin/create_wand_data -s bm25 --bm25-b 0.4 --bm25-k1 0.9 --block-size 128 -c  ./index/2_inverted/wikilarge.inv --compress --quantize 8 -o ./index/3_compressed/wikilarge.inv.wand
+~/pisa/build/bin/create_wand_data -s bm25 --bm25-b 0.4 --bm25-k1 0.9 --block-size 128 -c  ./index/2_inverted/wikilarge.inv --compress --quantize 8 -o ./index/3_compressed/wikilarge.inv.wand
 ```
 
 #### Compressing the index 
 (We select the SIMD-BP codec. See: https://pisa-engine.github.io/pisa/book/guide/compressing.html)
 ```
-../pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv -e block_simdbp -o ./index/3_compressed/wikilarge.inv.simdbp --check
+~/pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv -e block_simdbp -o ./index/3_compressed/wikilarge.inv.simdbp --check
 ```
 
-**Note:** There is a version of the index inside ```./index/3_compressed/``` diretcory which is (besides) compressed using ```gzip``` to avoid surpassing 50 Mb (Github's max file size suggestion). ```Gunzip``` it if you want to run tests without reindexing the collection.
+**Note:** There is a version of the index inside ```./index/3_compressed/``` directory which is (besides) compressed using ```gzip``` to avoid surpassing 50 Mb (Github's max file size suggestion). ```Gunzip``` it if you want to run tests without reindexing the collection.
 
 
 #### Reordering docids using graph bisection algorithm 
@@ -57,7 +57,7 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 
 #### Compressing the reordered index (~7% size reduction for this example)
 ```
-../pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv.bp -e block_simdbp -o ./index/3_compressed/wikilarge.inv.bp.simdbp --check
+~/pisa/build/bin/compress_inverted_index -c ./index/2_inverted/wikilarge.inv.bp -e block_simdbp -o ./index/3_compressed/wikilarge.inv.bp.simdbp --check
 ```
 
 #### Prepare queries (stem queries using porter2 algorithm and map to term-ids from the index. 
@@ -69,15 +69,15 @@ cat ./collection/wikilarge.trec | ~/pisa/build/bin/parse_collection -j 12 -f tre
 #### Timing queries (note that boolean queries do not require the use of the wand file). 
 For global times exclude the ```--extract``` option
 ```
-../pisa/build/bin/queries -s bm25 -e block_simdbp -k 10 -a and -i ./index/3_compressed/wikilarge.inv.simdbp -q queries/MQT_1Kqueries.sample.stemmed.mapped --extract > runs/MQT_on_wikilarge.AND.k10.times
+~/pisa/build/bin/queries -s bm25 -e block_simdbp -k 10 -a and -i ./index/3_compressed/wikilarge.inv.simdbp -q queries/MQT_1Kqueries.sample.stemmed.mapped --extract > runs/MQT_on_wikilarge.AND.k10.times
 ```
 ```
-../pisa/build/bin/queries -s bm25 -e block_simdbp -k 10 -a maxscore -i ./index/3_compressed/wikilarge.inv.simdbp --wand ./index/3_compressed/wikilarge.inv.wand --compressed-wand -q queries/MQT_1Kqueries.sample.stemmed.mapped --extract > runs/MQT_on_wikilarge.MS.k10.times
+~/pisa/build/bin/queries -s bm25 -e block_simdbp -k 10 -a maxscore -i ./index/3_compressed/wikilarge.inv.simdbp --wand ./index/3_compressed/wikilarge.inv.wand --compressed-wand -q queries/MQT_1Kqueries.sample.stemmed.mapped --extract > runs/MQT_on_wikilarge.MS.k10.times
 ```
 
 #### Retrieving results
 ```
-../pisa/build/bin/evaluate_queries -s bm25 -e block_simdbp -k 10 -a maxscore -i ./index/3_compressed/wikilarge.inv.simdbp --wand ./index/3_compressed/wikilarge.inv.wand --compressed-wand --documents ./index/1_forward/wikilarge.fwd.doclex -q queries/MQT_1Kqueries.sample.stemmed.mapped > runs/MQT_on_wikilarge.MS.k10.results
+~/pisa/build/bin/evaluate_queries -s bm25 -e block_simdbp -k 10 -a maxscore -i ./index/3_compressed/wikilarge.inv.simdbp --wand ./index/3_compressed/wikilarge.inv.wand --compressed-wand --documents ./index/1_forward/wikilarge.fwd.doclex -q queries/MQT_1Kqueries.sample.stemmed.mapped > runs/MQT_on_wikilarge.MS.k10.results
 ```
 ___
 
